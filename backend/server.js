@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');  
 const passwordRoutes = require('./routes/passwordRoutes');
+const cors = require('cors');
+
 
 
 dotenv.config();
@@ -13,6 +15,8 @@ connectDB();
 
 app.use('/api', authRoutes);
 app.use('/api/passwords', passwordRoutes);
+app.use(cors({ origin: '*'})); 
+
 
 
 app.get('/', (req, res) => {
