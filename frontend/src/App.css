@@ -35,3 +35,37 @@
   color: red;
   margin-top: 10px;
 }
+
+.dashboard {
+  width: 80%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.form-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-box input {
+  padding: 10px;
+  flex: 1;
+}
+
+.form-box button {
+  padding: 10px 15px;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.password-list .card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+

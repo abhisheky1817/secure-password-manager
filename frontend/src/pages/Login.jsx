@@ -1,44 +1,40 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      const res = await axios.post("http://localhost:5000/api/login", {
+        email,
+        password,
       });
 
-      const data = await response.json();
+      localStorage.setItem("token", res.data.token);
 
-      if (response.ok) {
-        localStorage.setItem("token", data.token);
-        window.location.href = "/dashboard";
-      } else {
-        setError(data.message || "Invalid email or password");
-      }
-    } catch (error) {
-      setError("Server error. Please try again.");
+      navigate("/dashboard");
+
+    } catch (err) {
+      setError("Invalid email or password!");
     }
   };
 
   return (
-    <div className="auth-container">
+    <div className="login-container">
       <h2>Login</h2>
 
       <form onSubmit={handleLogin}>
         <input
           type="email"
-          placeholder="Enter Email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -46,7 +42,7 @@ export default function Login() {
 
         <input
           type="password"
-          placeholder="Enter Password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -55,11 +51,13 @@ export default function Login() {
         <button type="submit">Login</button>
       </form>
 
-      {error && <p className="error">{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
       <p>
-        New user? <Link to="/signup">Create Account</Link>
+        New here? <a href="/signup">Create Account</a>
       </p>
     </div>
   );
 }
+
+export default Login;
