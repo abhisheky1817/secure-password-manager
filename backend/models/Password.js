@@ -1,28 +1,24 @@
-const mongoose = require('mongoose');
-
+import mongoose from 'mongoose';
 
 const passwordSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', 
+    ref: 'User',
     required: true
   },
   platform: {
-    type: String, 
+    type: String,
     required: true
   },
   username: {
-    type: String, 
+    type: String,
     required: true
   },
   password: {
-    type: String, 
+    type: String,
     required: true
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
   }
-});
+}, { timestamps: true });
 
-module.exports = mongoose.model('Password', passwordSchema);
+const Password = mongoose.model('Password', passwordSchema);
+export default Password;
